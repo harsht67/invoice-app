@@ -4,31 +4,64 @@ import dayjs from 'dayjs'
 const initialState = {
     status: 'idle',
     entities: {
-        1: {
-            id: 1,
+        13542: {
+            id: 13542,
             from: {
-                addr: 'xyz',
-                city: 'xxx',
-                code: '111',
-                country: 'yyy',
+                addr: '19 union terrrance',
+                city: 'london',
+                code: 'E1 3EZ',
+                country: 'united kingdom',
             },
             to: {
-                name: 'boi',
-                email: 'boi@gmail.com',
-                addr: 'abc',
-                city: 'a',
-                code: '2',
-                country: 'bbb',
+                name: 'alex grim',
+                email: 'alexgrim@gmail.com',
+                addr: 'b4 church way',
+                city: 'bradford',
+                code: 'BO 9PD',
+                country: 'united kingdom',
             },
-            date: '24 apr 2020',
+            date: '24 sep 2020',
             term: 30,
-            desc: 'idk',
+            desc: 'graphic design',
+            status: 'pending',
+            items: {
+                1: {
+                    name: 'banner design',
+                    qty: 1,
+                    price: 10000,
+                },
+                2: {
+                    name: 'email design',
+                    qty: 2,
+                    price: 2500,
+                },
+            }
+        },
+        53346: {
+            id: 53346,
+            from: {
+                addr: '19 union terrrance',
+                city: 'london',
+                code: 'E1 3EZ',
+                country: 'united kingdom',
+            },
+            to: {
+                name: 'john morrison',
+                email: 'johnmorrison@gmail.com',
+                addr: 'E34 new manchester',
+                city: 'manchester',
+                code: 'D99',
+                country: 'united kingdom',
+            },
+            date: '30 oct 2020',
+            term: 45,
+            desc: 'website design',
             status: 'paid',
             items: {
                 1: {
-                    name: 'item1',
-                    qty: 5,
-                    price: 500,
+                    name: 'website design',
+                    qty: 1,
+                    price: 75000,
                 },
             }
         }
