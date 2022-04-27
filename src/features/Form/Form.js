@@ -102,8 +102,8 @@ function Form(props) {
                     [id]: {
                         id: id,
                         name: '',
-                        qty: 0,
-                        price: 0,
+                        qty: '',
+                        price: '',
                     }
                 }
             }
