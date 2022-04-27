@@ -1,0 +1,26 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: 'open sans', sans-serif;
+}
+
+body {
+    background-color: var(--bck);
+}
+
+:root {
+    --fs-300: 0.8rem;
+    --fs-400: 0.9rem;
+    --fs-500: 1rem;
+    --fs-600: 1.25rem;
+    --fs-700: 1.75rem;
+    --fs-900: 3rem;
+    --br: 0.25rem;
+    --temp: #e9e9e9;
+}
+
+@media screen and (min-width: 900px) {
+    :root {
+        --fs-400: 1rem;
+    }
+}

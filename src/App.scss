@@ -1,0 +1,10 @@
+.app {
+    display: flex;
+    flex-flow: column;
+}
+
+@media screen and (min-width: 1200px) {
+    .app {
+        flex-flow: row;
+    }
+}

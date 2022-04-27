@@ -1,0 +1,32 @@
+.invoicePageButtons {
+    display: flex;
+    gap: 0.5rem;
+
+    button {
+        border: none;
+        border-radius: 2rem;
+        outline: none;
+        font-weight: 600;
+        padding: 0.5rem;
+        color: #ffffff;
+
+        &:hover {
+            cursor: pointer;
+            filter: brightness(90%);
+        }
+
+    }
+
+    .editBtn {
+        background-color: #232742;
+    }
+
+    .deleteBtn {
+        background-color: #f15556;
+    }
+
+    .markBtn {
+        background-color: var(--acc);
+    }
+
+}

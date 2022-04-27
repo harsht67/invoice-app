@@ -1,0 +1,43 @@
+.home {
+    padding-block-start: 5rem;
+
+    .home__invoices {
+        padding: 1rem;
+    
+        .invoices__error {
+            color: var(--txt2);
+            text-transform: capitalize;
+            display: flex;
+            flex-flow: column;
+            align-items: center;
+            gap: 0.5rem;
+            margin-block: 2rem;
+
+            .error__icon {
+                font-size: var(--fs-900);
+            }
+
+            .error__msg {
+                font-size: var(--fs-400);
+                font-weight: 600;
+            }
+
+        }
+
+    }
+
+}
+
+@media screen and (min-width: 800px) {
+    .home {
+        padding-inline: 2rem;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .home {
+        padding: 0;
+        width: 55%;
+        margin: 2rem auto;
+    }
+}

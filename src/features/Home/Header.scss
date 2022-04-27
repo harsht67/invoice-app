@@ -1,0 +1,130 @@
+.header {
+    font-size: var(--fs-400);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--txt);
+
+    .header__title {
+
+        .title__sub {
+            font-size: var(--fs-300);
+            color: var(--txt2);
+
+            &:after {
+                content: ' invocies';
+            }
+
+        }
+
+    }
+
+    .header__filter {
+        position: relative;
+        flex: 1;
+        display: flex;
+        justify-content: right;
+        
+        .filter__btn {
+            font-size: var(--fs-300);
+            font-weight: 500;
+            color: var(--txt);
+            display: flex;
+            align-items: center;
+
+            .icon {
+                color: var(--acc);
+            }
+
+            &:hover {
+                cursor: pointer;
+                color: var(--txt2);
+            }
+
+        }
+
+        .filter__dropdown {
+            z-index: 10;
+            position: absolute;
+            top: 2rem;
+            min-width: 6rem;
+            font-size: var(--fs-300);
+            background-color: var(--frg);
+            color: var(--txt2);
+            padding-block: 0.25rem;
+            border-radius: var(--br);
+            text-transform: capitalize;
+            overflow: hidden;
+            box-shadow: 1px 1px 5px var(--bck);
+
+            .dropdown__item {
+                padding: 0.25rem 0.5rem;
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: var(--bck);
+                    color: var(--txt);
+                }
+
+            }
+
+        }
+
+    }
+
+    .header__newBtn {
+        padding: 0.25rem 0.5rem  0.25rem 0.25rem;
+        background-color: var(--acc);
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        border-radius: 2rem;
+
+        &:hover {
+            cursor: pointer;
+            filter: brightness(90%);
+        }
+
+        .newBtn__icon {
+            margin-inline-end: 0.25rem;
+            font-size: var(--fs-700);
+        }
+
+        &:after {
+            content: 'New';
+            font-size: var(--fs-300);
+            font-weight: 500;
+        }
+
+    }
+
+}
+
+@media screen and (min-width: 1200px) {
+    .header {
+
+        .header__title {
+
+            .title__sub {
+
+                &:before {
+                    content: 'There are ';
+                }
+    
+                &:after {
+                    content: ' total invoices'
+                }
+
+            }
+
+        }
+
+        .header__newBtn {
+            &::after {
+                content: 'New Invoice';
+            }
+        }
+
+    }
+}

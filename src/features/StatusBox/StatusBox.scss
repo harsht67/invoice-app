@@ -1,0 +1,29 @@
+.statusBox {
+    padding: 0.5rem 0;
+    border-radius: 0.5rem;
+    font-size: var(--fs-300);
+    font-weight: 600;
+    text-transform: capitalize;
+    text-align: center;
+
+    .icon {
+        font-size: 0.75em;
+        margin-inline-end: 0.25rem;
+    }
+
+}
+
+.paid {
+    color: #45ccac;
+    background-color: #45ccac40;
+}
+
+.pending {
+    color: #f29a30;
+    background-color: #f29a3040;
+}
+
+.draft {
+    color: #ffffff;
+    background-color: #ffffff40;
+}

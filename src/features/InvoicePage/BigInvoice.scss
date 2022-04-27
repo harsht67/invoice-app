@@ -1,0 +1,172 @@
+.bigInvoice {
+    padding: 1rem;
+    background-color: var(--frg);
+    border-radius: 0.5rem;
+    font-size: var(--fs-300);
+    color: var(--txt2);
+    text-transform: capitalize;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 0;
+
+    .dateBox, .toBox {
+        width: 50%;
+    }
+
+    .descBox, .fromBox, .emailBox { 
+        width: 100%; 
+    }
+
+    .fromBox, .toBox {
+        > * {
+            margin-block-end: 0.1rem;
+        }
+    }
+
+    .imp {
+        color: var(--txt);
+        font-size: var(--fs-400);
+        font-weight: 700;
+    }
+
+    .title {
+        margin-block-end: 0.25rem;
+    }
+
+    .id {
+        text-transform: uppercase;
+    }
+
+    .name {
+        margin-block-end: 0.25rem;
+    }
+
+    .email {
+        text-transform: initial;
+    }
+
+    .dateBox {
+        > * {
+            margin-block-end: 1rem;
+        }
+    }
+
+    .items {
+        width: 100%;
+        background-color: var(--frg2);
+        border-radius: var(--br);
+        overflow: hidden;
+
+        .items__header {
+            display: none;
+            padding: 1rem 1rem 0;
+        }
+
+        .items__content {
+            padding: 1rem;
+            color: var(--txt);
+            font-weight: 700;
+
+            > *:not(:last-child) {
+                margin-block-end: 0.75rem;
+            }
+
+            .items__item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .name {
+                .extra {
+                    font-weight: 500;
+                    text-transform: lowercase;
+                    display: flex;
+                    gap: 0.1rem;
+                }
+            }
+
+            .qty, .price {
+                display: none;
+            }
+
+        }
+
+        .items__total {
+            padding: 1rem;
+            background-color: #000000;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .total {
+                font-size: var(--fs-600);
+                font-weight: 700;
+            }
+
+        }
+
+    }
+
+}
+
+@media screen and (min-width: 900px) {
+    .bigInvoice {
+        gap: 2rem 0;
+
+        .descBox, .fromBox {
+            width: 50%;
+        }
+
+        .dateBox, .toBox, .emailBox {
+            width: 30%;
+        }
+
+        .fromBox {
+            text-align: right;
+        }
+
+        .items {
+
+            .items__header, .items__item {
+                display: flex;
+                justify-content: space-between;
+                
+                .name {width: 40%;}
+                
+                .qty {
+                    width: 10%;
+                    text-align: center;
+                }
+                
+                .price {
+                    width: 20%;
+                    text-align: right;
+                }
+    
+                .total {
+                    width: 25%;
+                    text-align: right;
+                }
+    
+            }
+
+            .items__content {
+
+                .name {
+                    .extra {
+                        display: none;
+                    }
+                }
+
+                .qty, .price {
+                    display: initial;
+                }    
+
+            }
+        
+        }
+
+    }
+}
