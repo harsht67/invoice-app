@@ -35,7 +35,6 @@ function InvoicePageButtons({invoice, ...props}) {
 
     // changes status of invoice
     const changeStatus = () => {
-        console.log('here')
         dispatch(invoiceStatusChanged({
             id: invoice.id,
             status: btnStatus,

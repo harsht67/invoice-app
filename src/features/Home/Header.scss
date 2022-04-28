@@ -32,6 +32,7 @@
             color: var(--txt);
             display: flex;
             align-items: center;
+            text-transform: capitalize;
 
             .icon {
                 color: var(--acc);
@@ -99,6 +100,25 @@
 
     }
 
+}
+
+@media screen and (min-width: 800px) {
+    .header {
+
+        .header__filter {
+
+            .filter__btn {
+                text-transform: initial;
+
+                &::before {
+                    content: 'Filter by';
+                    margin-inline-end: 0.25em;
+                }
+            }
+
+        }
+
+    }
 }
 
 @media screen and (min-width: 1200px) {

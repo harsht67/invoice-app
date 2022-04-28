@@ -54,7 +54,7 @@ function Header(props) {
                     onClick={toggleDropdown}
                 >
                     
-                    Filter by {filter}
+                    {filter}
                     
                     <KeyboardArrowDownIcon
                         className='icon'

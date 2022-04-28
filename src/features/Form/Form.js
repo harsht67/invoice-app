@@ -7,7 +7,7 @@ import { Label } from './styles'
 import Dropdown from './Dropdown'
 import Items from './Items'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { invoiceAdded, invoiceUpdated } from '../../store/invoicesSlice'
 import { getIn, useFormik } from 'formik'
@@ -18,36 +18,6 @@ function Form(props) {
     const [data, setData] = useState(props.invoice)
 
     const dispatch = useDispatch()
-
-    // useEffect(() => {
-    //     if(props.type=='new'){
-    //         let id = Math.round(Date.now()/Math.random()*1000+1).toString().slice(4,10)
-    //         setData({
-    //             id,
-    //             from: {
-    //                 addr: '',
-    //                 city: '',
-    //                 code: '',
-    //                 country: '',
-    //             },
-    //             to: {
-    //                 name: '',
-    //                 email: '',
-    //                 addr: '',
-    //                 city: '',
-    //                 code: '',
-    //                 country: '',
-    //             },
-    //             date: '',
-    //             term: 30,
-    //             desc: '',
-    //             status: 'pending',
-    //             items: {},
-    //         })
-    //     }
-    // }, [])
-
-    // form validations 
 
     const schema = Yup.object().shape({
         from: Yup.object().shape({
@@ -186,17 +156,50 @@ function Form(props) {
 
         if(!Object.keys(errors).length) {
 
+            let obj = removeEmptyItems()
+
             if(props.type=='edit') {
-                dispatch(invoiceUpdated(data))
+                dispatch(invoiceUpdated(obj))
             }
             else {
-                dispatch(invoiceAdded(data))
+                dispatch(invoiceAdded(obj))
             }
 
            closeForm()
 
         }
     
+    }
+
+    // removes empty itmes  
+    const removeEmptyItems = () => {
+        let newData = {}
+        Object.values(data.items).forEach(item => {
+            let f = false
+            Object.values(item).forEach(i => {
+                if(i=='') {
+                    f = true
+                }
+            })
+            if(!f) {
+                newData[item.id] = item
+            }
+        })
+
+        setData({
+            ...data,
+            items: {
+                ...newData,
+            }
+        })
+        
+        return {
+            ...data,
+            items: {
+                ...newData,
+            }
+        }
+
     }
 
     // closes form

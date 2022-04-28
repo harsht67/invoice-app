@@ -118,7 +118,7 @@ function BigInvoice(props) {
                                 <p className='extra'>
                                     <span>{item.qty}</span>
                                     <span>x</span>
-                                    <span>&#8377;{item.price}</span>
+                                    <span>&#8377;{item.price.toLocaleString()}</span>
                                 </p>
                             </p>
                             <p className='qty'>
