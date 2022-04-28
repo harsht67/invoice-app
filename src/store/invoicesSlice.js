@@ -20,17 +20,19 @@ const initialState = {
                 code: 'BO 9PD',
                 country: 'united kingdom',
             },
-            date: '24 sep 2020',
+            date: '2020-09-24',
             term: 30,
             desc: 'graphic design',
             status: 'pending',
             items: {
                 1: {
+                    id: 1,
                     name: 'banner design',
                     qty: 1,
                     price: 10000,
                 },
                 2: {
+                    id: 2,
                     name: 'email design',
                     qty: 2,
                     price: 2500,
@@ -53,12 +55,13 @@ const initialState = {
                 code: 'D99',
                 country: 'united kingdom',
             },
-            date: '30 oct 2020',
+            date: '2020-10-04',
             term: 45,
             desc: 'website design',
             status: 'paid',
             items: {
                 1: {
+                    id: 1,
                     name: 'website design',
                     qty: 1,
                     price: 75000,
@@ -117,7 +120,7 @@ export const getItemsTotal = (items) => {
     return total
 }
 
-export const getDate = (date, term) => {
+export const getDate = (date, term=0) => {
     let due = dayjs(date).add(term, 'day')
 
     return dayjs(due).format('DD MMM YYYY')

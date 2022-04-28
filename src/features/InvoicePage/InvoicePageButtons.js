@@ -25,7 +25,7 @@ function InvoicePageButtons({invoice, ...props}) {
     // deletes invoice 
     const invoiceDeletedFunc = () => {
         dispatch(invoiceDeleted(invoice.id))
-        navigate.push('/')
+        navigate('/')
     }
 
     // opens edit form

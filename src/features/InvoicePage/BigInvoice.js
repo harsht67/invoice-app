@@ -36,7 +36,7 @@ function BigInvoice(props) {
                     </p> 
                     
                     <p className='imp'>
-                        {date}
+                        {getDate(date)}
                     </p>
                 
                 </section>
