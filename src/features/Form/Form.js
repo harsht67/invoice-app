@@ -3,13 +3,15 @@ import './Form.scss'
 import { Label } from './styles'
 
 // components
-import Input from './Input'
+// import Input from './Input'
 import Dropdown from './Dropdown'
 import Items from './Items'
 
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { invoiceAdded, invoiceUpdated } from '../../store/invoicesSlice'
+import { getIn, useFormik } from 'formik'
+import * as Yup from 'yup'
 
 function Form(props) {
 
@@ -17,57 +19,107 @@ function Form(props) {
 
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        if(props.type=='new'){
-            let id = Math.round(Date.now()/Math.random()*1000+1).toString().slice(4,10)
-            setData({
-                id,
-                from: {
-                    address: '',
-                    city: '',
-                    code: '',
-                    country: '',
-                },
-                to: {
-                    name: '',
-                    email: '',
-                    address: '',
-                    city: '',
-                    code: '',
-                    country: '',
-                },
-                date: '',
-                term: 30,
-                desc: '',
-                status: 'pending',
-                items: {},
-            })
+    // useEffect(() => {
+    //     if(props.type=='new'){
+    //         let id = Math.round(Date.now()/Math.random()*1000+1).toString().slice(4,10)
+    //         setData({
+    //             id,
+    //             from: {
+    //                 addr: '',
+    //                 city: '',
+    //                 code: '',
+    //                 country: '',
+    //             },
+    //             to: {
+    //                 name: '',
+    //                 email: '',
+    //                 addr: '',
+    //                 city: '',
+    //                 code: '',
+    //                 country: '',
+    //             },
+    //             date: '',
+    //             term: 30,
+    //             desc: '',
+    //             status: 'pending',
+    //             items: {},
+    //         })
+    //     }
+    // }, [])
+
+    // form validations 
+
+    const schema = Yup.object().shape({
+        from: Yup.object().shape({
+            addr: Yup.string().required('required'),
+            city: Yup.string().required('required'),
+            code: Yup.string().required('required'),
+            country: Yup.string().required('required'),
+        }),
+        to: Yup.object().shape({
+            name: Yup.string().required('required'),
+            email: Yup.string().email('invalid email').required('required'),
+            addr: Yup.string().required('required'),
+            city: Yup.string().required('required'),
+            code: Yup.string().required('required'),
+            country: Yup.string().required('required'),
+        }),
+        term: Yup.string().required('required'),
+        desc: Yup.string().required('required'),
+    })
+
+    const { 
+        handleSubmit, 
+        handleChange, 
+        handleBlur, 
+        touched, 
+        errors 
+    } = useFormik({
+        initialValues: data,
+        validationSchema: schema,
+        onSubmit: (values) => {
+            console.log(values)
         }
-    }, [])
+    })
 
     // updates input field
-    const changeHandler = (obj) => {
+    const changeHandler = (e, obj=null) => {
 
-        const {id, name, value} = obj
+        const {id, name, value} = obj ? obj : e.target  
 
-        if(name.includes('-')) {
-            const [cat, type] = name.split('-')
+        if(name.includes('.')) {
+            const [cat, type] = name.split('.')
 
             if(cat=='items') {
-
-                setData({
-                    ...data,
-                    [cat]: {
-                        ...data[cat],
-                        [id]: {
-                            ...data[cat][id],
-                            [type]: value,
-                        }
+                let val 
+                if(type=='qty'||type=='price') {
+                    if(!isNaN(value)) {
+                        val = value 
                     }
-                })
+                    else {
+                        val = ''
+                    }
+                }
+                else {
+                    val = value
+                }
+
+                val &&
+                    setData({
+                        ...data,
+                        [cat]: {
+                            ...data[cat],
+                            [id]: {
+                                ...data[cat][id],
+                                [type]: value,
+                            }
+                        }
+                    })
 
             }
             else {
+
+                handleChange(e)
 
                 setData({
                     ...data,
@@ -81,6 +133,8 @@ function Form(props) {
         
         }
         else {
+
+            name!='term' && handleChange(e)
 
             setData({
                 ...data,
@@ -130,16 +184,18 @@ function Form(props) {
     // save updates
     const saveInvoice = (e) => {
 
-        e.preventDefault()
+        if(!Object.keys(errors).length) {
 
-        if(props.type=='edit') {
-            dispatch(invoiceUpdated(data))
-        }
-        else {
-            dispatch(invoiceAdded(data))
-        }
+            if(props.type=='edit') {
+                dispatch(invoiceUpdated(data))
+            }
+            else {
+                dispatch(invoiceAdded(data))
+            }
 
-        closeForm()
+           closeForm()
+
+        }
     
     }
 
@@ -160,7 +216,7 @@ function Form(props) {
 
                     </h2>
 
-                    <form>
+                    <form onSubmit={handleSubmit} >
 
                         <fieldset className='form__from'>
 
@@ -168,33 +224,81 @@ function Form(props) {
                                 bill from 
                             </legend>
 
-                            <Input
-                                title='street address'
-                                name='from-addr'
-                                value={data.from.addr}
-                                changeHandler={changeHandler}
-                            />
+                            <Label className={`input from.addr`}>
 
-                            <Input
-                                title='city'
-                                name='from-city'
-                                value={data.from.city}
-                                changeHandler={changeHandler}
-                            />
+                                street address 
 
-                            <Input
-                                title='post code'
-                                name='from-code'
-                                value={data.from.code}
-                                changeHandler={changeHandler}
-                            />
+                                <input
+                                    name='from.addr'
+                                    value={data.from.addr}
+                                    onChange={changeHandler}
+                                    onBlur={handleBlur}
+                                />
 
-                            <Input
-                                title='country'
-                                name='from-country'
-                                value={data.from.country}
-                                changeHandler={changeHandler}
-                            />
+                                {
+                                    getIn(touched, 'from.addr') && getIn(errors, 'from.addr') 
+                                    ? <span className='input__err'>{getIn(errors, 'from.addr')}</span>
+                                    : null
+                                }
+
+                            </Label>
+
+                            <Label className={`input from.city`}>
+
+                                city
+
+                                <input
+                                    name='from.city'
+                                    value={data.from.city}
+                                    onChange={changeHandler}
+                                    onBlur={handleBlur}
+                                />
+
+                                {
+                                    getIn(touched, 'from.city') && getIn(errors, 'from.city') 
+                                    ? <span className='input__err'>{getIn(errors, 'from.city')}</span>
+                                    : null
+                                }
+
+                            </Label>
+
+                            <Label className={`input from.code`}>
+
+                                post code
+
+                                <input
+                                    name='from.code'
+                                    value={data.from.code}
+                                    onChange={changeHandler}
+                                    onBlur={handleBlur}
+                                />
+
+                                {
+                                    getIn(touched, 'from.code') && getIn(errors, 'from.code') 
+                                    ? <span className='input__err'>{getIn(errors, 'from.code')}</span>
+                                    : null
+                                }
+
+                            </Label>
+
+                            <Label className={`input from.country`}>
+
+                                country
+
+                                <input
+                                    name='from.country'
+                                    value={data.from.country}
+                                    onChange={changeHandler}
+                                    onBlur={handleBlur}
+                                />
+
+                                {
+                                    getIn(touched, 'from.country') && getIn(errors, 'from.country') 
+                                    ? <span className='input__err'>{getIn(errors, 'from.country')}</span>
+                                    : null
+                                }
+
+                            </Label>
 
                         </fieldset>
 
@@ -204,61 +308,143 @@ function Form(props) {
                                 bill to
                             </legend>
 
-                            <Input
-                                title="client's name"
-                                name='to-name'
-                                value={data.to.name}
-                                changeHandler={changeHandler}
-                            />
+                            <Label className={`input to.name`}>
 
-                            <Input
-                                title="client's email"
-                                name='to-email'
-                                value={data.to.email}
-                                changeHandler={changeHandler}
-                            />
+                                client' name
 
-                            <Input
-                                title='street address'
-                                name='to-addr'
-                                value={data.to.addr}
-                                changeHandler={changeHandler}
-                            />
+                                <input
+                                    name='to.name'
+                                    value={data.to.name}
+                                    onChange={changeHandler}
+                                    onBlur={handleBlur}
+                                />
 
-                            <Input
-                                title='city'
-                                name='to-city'
-                                value={data.to.city}
-                                changeHandler={changeHandler}
-                            />
+                                {
+                                    getIn(touched, 'to.name') && getIn(errors, 'to.name') 
+                                    ? <span className='input__err'>{getIn(errors, 'to.name')}</span>
+                                    : null
+                                }
 
-                            <Input
-                                title='post code'
-                                name='to-code'
-                                value={data.to.code}
-                                changeHandler={changeHandler}
-                            />
+                            </Label>
 
-                            <Input
-                                title='country'
-                                name='to-country'
-                                value={data.to.country}
-                                changeHandler={changeHandler}
-                            />
+                            <Label className={`input to.email`}>
 
+                                client's email
+
+                                <input
+                                    name='to.email'
+                                    value={data.to.email}
+                                    onChange={changeHandler}
+                                    onBlur={handleBlur}
+                                />
+
+                                {
+                                    getIn(touched, 'to.email') && getIn(errors, 'to.email') 
+                                    ? <span className='input__err'>{getIn(errors, 'to.email')}</span>
+                                    : null
+                                }
+
+                            </Label>
+
+                            <Label className={`input to.addr`}>
+
+                                street address
+
+                                <input
+                                    name='to.addr'
+                                    value={data.to.addr}
+                                    onChange={changeHandler}
+                                    onBlur={handleBlur}
+                                />
+
+                                {
+                                    getIn(touched, 'to.addr') && getIn(errors, 'to.addr') 
+                                    ? <span className='input__err'>{getIn(errors, 'to.addr')}</span>
+                                    : null
+                                }
+
+                            </Label>
+
+                            <Label className={`input to.city`}>
+
+                                city
+
+                                <input
+                                    name='to.city'
+                                    value={data.to.city}
+                                    onChange={changeHandler}
+                                    onBlur={handleBlur}
+                                />
+
+                                {
+                                    getIn(touched, 'to.city') && getIn(errors, 'to.city') 
+                                    ? <span className='input__err'>{getIn(errors, 'to.city')}</span>
+                                    : null
+                                }
+
+                            </Label>
+
+                            <Label className={`input to.code`}>
+
+                                post code
+
+                                <input
+                                    name='to.code'
+                                    value={data.to.code}
+                                    onChange={changeHandler}
+                                    onBlur={handleBlur}
+                                />
+
+                                {
+                                    getIn(touched, 'to.code') && getIn(errors, 'to.code') 
+                                    ? <span className='input__err'>{getIn(errors, 'to.code')}</span>
+                                    : null
+                                }
+
+                            </Label>
+
+                            <Label className={`input to.country`}>
+
+                                country
+
+                                <input
+                                    name='to.country'
+                                    value={data.to.country}
+                                    onChange={changeHandler}
+                                    onBlur={handleBlur}
+                                />
+
+                                {
+                                    getIn(touched, 'to.country') && getIn(errors, 'to.country') 
+                                    ? <span className='input__err'>{getIn(errors, 'to.country')}</span>
+                                    : null
+                                }
+
+                            </Label>
                             
-
                         </fieldset>
 
                         <fieldset className='form__extra'>
 
-                            <Input
-                                title='invoice date'
-                                name='date'
-                                value={data.date}
-                                type='date'
-                                changeHandler={changeHandler}
-                            />
+                            <Label className={`input date`}>
+
+                                date
+
+                                <input
+                                    name='date'
+                                    type='date'
+                                    value={data.date}
+                                    onChange={changeHandler}
+                                    onBlur={handleBlur}
+                                />
+
+                                {
+                                    getIn(touched, 'date') && getIn(errors, 'date') 
+                                    ? <span className='input__err'>{getIn(errors, 'date')}</span>
+                                    : null
+                                }
+
+                            </Label>
                             
                             <Label 
                                 className='term'
@@ -269,16 +455,29 @@ function Form(props) {
                                 <Dropdown
                                     data={data.term}
                                     changeHandler={changeHandler}
+                                    onBlur={handleBlur}
                                 />
 
                             </Label>
 
-                            <Input
-                                title='project description'
-                                name='desc'
-                                value={data.desc}
-                                changeHandler={changeHandler}
-                            />
+                            <Label className={`input desc`}>
+
+                                product description
+
+                                <input
+                                    name='desc'
+                                    value={data.desc}
+                                    onChange={changeHandler}
+                                    onBlur={handleBlur}
+                                />
+
+                                {
+                                    getIn(touched, 'desc') && getIn(errors, 'desc') 
+                                    ? <span className='input__err'>{getIn(errors, 'desc')}</span>
+                                    : null
+                                }
+
+                            </Label>
 
                         </fieldset>
 
@@ -293,6 +492,8 @@ function Form(props) {
                                 changeHandler={changeHandler}
                                 addItem={addItem}
                                 deleteItem={deleteItem}
+                                errors={errors}
+                                touched={touched}
                             />
 
                         </fieldset>

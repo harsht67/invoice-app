@@ -21,6 +21,7 @@ function App() {
 
   return (
     <div className="app">
+
       <Router>
 
         <GlobalStyle theme={themes[theme]} />
@@ -39,6 +40,7 @@ function App() {
         </Routes>
 
       </Router>
+
     </div>
   )
 }
