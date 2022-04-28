@@ -21,7 +21,7 @@ function Dropdown(props) {
 
         toggleDropdown()
         
-        props.changeHandler({
+        props.changeHandler(null, {
             name: 'term',
             value: val,
         })

@@ -24,21 +24,21 @@ function Items(props) {
           
             <input 
                 className='name'
-                name='items-name'
+                name='items.name'
                 value={name}
                 onChange={changeHandler}
             />
 
             <input 
                 className='qty'
-                name='items-qty'
+                name='items.qty'
                 value={qty}
                 onChange={changeHandler}
             />
 
             <input 
                 className='price'
-                name='items-price'
+                name='items.price'
                 value={price}
                 onChange={changeHandler}
             />

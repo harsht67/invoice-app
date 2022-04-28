@@ -31,6 +31,29 @@ function Home() {
         setForm(prev => !prev)
     }
 
+    const invoice = {
+        id: Math.round(Date.now()/Math.random()*1000+1).toString().slice(4,10),
+        from: {
+            addr: '',
+            city: '',
+            code: '',
+            country: '',
+        },
+        to: {
+            name: '',
+            email: '',
+            addr: '',
+            city: '',
+            code: '',
+            country: '',
+        },
+        date: '',
+        term: 30,
+        desc: '',
+        status: 'pending',
+        items: {},
+    }
+
     return (
         <div className='home'>
         
@@ -59,6 +82,7 @@ function Home() {
             { form &&
                 <Form
                     type='new'
+                    invoice={invoice}
                     toggleForm={toggleForm}
                 />
             }

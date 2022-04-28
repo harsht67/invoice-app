@@ -11,7 +11,7 @@ function Items({items, ...props}) {
 
     // updates field on change
     const changeHandler = (obj) => {
-        props.changeHandler(obj)
+        props.changeHandler(null, obj)
     }
 
     // adds a new item (empty)
