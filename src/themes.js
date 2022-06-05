@@ -4,7 +4,7 @@ const themes = {
         "frg2": "#252946",
         "bck": "#141625",
         "txt": "#ffffff",
-        "txt2": "#d4d4d4",
+        "txt2": "#b9bdd4",
         "acc" : "#9278ff",
         "acc2" : "#7c5df9",
     },

@@ -7,9 +7,10 @@
     color: var(--txt);
 
     .header__title {
+        font-size: var(--fs-600);
 
         .title__sub {
-            font-size: var(--fs-300);
+            font-size: var(--fs-400);
             color: var(--txt2);
 
             &:after {
@@ -25,10 +26,9 @@
         flex: 1;
         display: flex;
         justify-content: right;
+        font-weight: 600;
         
         .filter__btn {
-            font-size: var(--fs-300);
-            font-weight: 500;
             color: var(--txt);
             display: flex;
             align-items: center;
@@ -50,7 +50,6 @@
             position: absolute;
             top: 2rem;
             min-width: 6rem;
-            font-size: var(--fs-300);
             background-color: var(--frg);
             color: var(--txt2);
             padding-block: 0.25rem;
@@ -58,6 +57,7 @@
             text-transform: capitalize;
             overflow: hidden;
             box-shadow: 1px 1px 5px var(--bck);
+            font-size: var(--fs-300);
 
             .dropdown__item {
                 padding: 0.25rem 0.5rem;
@@ -75,7 +75,7 @@
     }
 
     .header__newBtn {
-        padding: 0.25rem 0.5rem  0.25rem 0.25rem;
+        padding: 0.5rem 0.75rem 0.5rem 0.5rem;
         background-color: var(--acc);
         color: #ffffff;
         display: flex;
